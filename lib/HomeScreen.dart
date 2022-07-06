@@ -29,15 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final connMess = MqttConnectMessage()
         .withClientIdentifier("flutter_client")
-        .authenticateAs("qfhgblyb:qfhgblyb", "th1iCzYBv6wGuBUhxgzbZdhJXwDzRw5F")
+        .authenticateAs("edwogfqz:edwogfqz", "3CNvgOXydn4AcDNzUcQi8WJX12geu3bJ")
         //.authenticateAs('username', 'password')
-        //.keepAliveFor(60)
+
         .withWillTopic('willtopic')
         .withWillMessage('My Will message')
         .startClean()
         .withWillQos(MqttQos.atLeastOnce);
     client.connectionMessage = connMess;
-    client.keepAlivePeriod = 60;
+    //client.keepAlivePeriod = 60;
 
     try {
       print('Connecting');
@@ -264,6 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     height: MediaQuery.of(context).size.height * 0.05,
                     child: TextFormField(
+                      keyboardType: TextInputType.numberWithOptions(),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.zero),
@@ -299,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   //Função ativar o atuador
   ativar() {
-    print("\nEstado: $estado");
+    //print("\nEstado: $estado");
     showDialog(
       context: context,
       builder: (_) {
@@ -348,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-//Mensagens na base da tela
+//funções do callback
   void onMessageEstado(String payload) {
     setState(() {
       estado = int.parse(payload);
@@ -357,8 +358,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void onMessageLimite(String payload) {
-    print('\nLimitennnnn');
-
     setState(() {
       limite = double.parse(payload);
     });
@@ -377,7 +376,6 @@ class _HomeScreenState extends State<HomeScreen> {
     if (temp > limite && estado == 0) {
       publish("1", "Ativacao", client);
     }
-
     print(temp);
   }
 

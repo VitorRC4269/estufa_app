@@ -26,6 +26,7 @@ Widget button(String texto, Color color, double width, double height,
   );
 }
 
+//Mensagens na base da tela
 void showProcessing({BuildContext context}) {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(
